@@ -19,7 +19,7 @@ const renderer = new UnlitRenderer(canvas);
 await renderer.initialize();
 
 const loader = new GLTFLoader();
-await loader.load('scene/scene.gltf');
+await loader.load('scene/custom_scene8.gltf');
 
 const scene = loader.loadScene(loader.defaultScene);
 const camera = loader.loadNode('Camera');
@@ -30,16 +30,26 @@ camera.aabb = {
     max: [0.2, 0.2, 0.2],
 };
 
+const plane = loader.loadNode('plane-1')
+plane.isDynamic=true;
+plane.aabb= {
+    min: [-0.2, -0.2, -0.2],
+    max: [0.2, 0.2, 0.2],
+};
+
+camera.addChild(plane)
+
 loader.loadNode('Box.000').isStatic = true;
 loader.loadNode('Box.001').isStatic = true;
 loader.loadNode('Box.002').isStatic = true;
 loader.loadNode('Box.003').isStatic = true;
 loader.loadNode('Box.004').isStatic = true;
 loader.loadNode('Box.005').isStatic = true;
-loader.loadNode('Wall.000').isStatic = true;
 loader.loadNode('Wall.001').isStatic = true;
-loader.loadNode('Wall.002').isStatic = true;
 loader.loadNode('Wall.003').isStatic = true;
+loader.loadNode('Cube').isStatic = true;
+loader.loadNode('Cube.001').isStatic = true;
+loader.loadNode('Cube.002').isStatic = true;
 
 const physics = new Physics(scene);
 scene.traverse(node => {
